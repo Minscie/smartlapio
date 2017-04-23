@@ -49,9 +49,9 @@
         android:onClick="buttonGoActivityMain2" />
 
         <EditText
-        android:layout_width="250dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:hint="Enter Text Here"
+        android:hint="Enter your name"
         android:id="@+id/editText"
         android:layout_above="@+id/buttonGoActivityMain2"
         android:layout_alignParentLeft="true"
@@ -61,7 +61,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SEND"
+        android:text="Yes, This is my name"
         android:id="@+id/btnSend"
         android:layout_alignBaseline="@+id/editText"
         android:layout_alignBottom="@+id/editText"

@@ -1,0 +1,180 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="fi.minscie.duckt.smartshovel.DataFragment">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/messageTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Greetings from your master"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            />
+
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="55dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Temperature:" />
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Average:" />
+
+
+            <Space
+                android:layout_width="150dp"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Weight:" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Average:" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Total:" />
+
+            <Space
+                android:layout_width="150dp"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Shovelled Total:" />
+
+            <TextView
+                android:id="@+id/timerTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NA" />
+
+            <Button
+                android:id="@+id/startTracking"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:background="#017000"
+                android:onClick="startButtonClicked"
+                android:text="Start"
+                android:textAlignment="gravity" />
+
+            <Button
+                android:id="@+id/stopTracking"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:background="#891000"
+                android:onClick="stopButtonClicked"
+                android:text="Stop" />
+
+
+            <Button
+                android:id="@+id/restartTracking"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:background="#916600"
+                android:onClick="restartButtonClicked"
+                android:text="Restart" />
+
+            <Button
+                android:id="@+id/pauseTracking"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:background="#388888"
+                android:onClick="pauseButtonClicked"
+                android:text="Pause" />
+
+            <Button
+                android:id="@+id/historyButton"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:onClick="historyButtonClicked"
+                android:text="History" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/temperatureValueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NA" />
+
+            <TextView
+                android:id="@+id/averageTemperatureTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NA" />
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/lastWeightValueTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NA" />
+
+            <TextView
+                android:id="@+id/averageWeightValueTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NA" />
+
+            <TextView
+                android:id="@+id/weightValueTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NA" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/countValueTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NA" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

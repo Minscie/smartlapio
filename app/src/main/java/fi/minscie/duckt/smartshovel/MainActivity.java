@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -53,6 +55,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     ListView lvNewDevices;
 
+    private String slaveName = "Worker";
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 
     // Create a BroadcastReceiver for ACTION_FOUND
     private final BroadcastReceiver mBroadcastReceiver1 = new BroadcastReceiver() {
@@ -193,14 +203,28 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         buttonGoActivityMain2 = (Button) findViewById(R.id.buttonGoActivityMain2);
         buttonGoActivityMain2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent activityintent = new Intent(MainActivity.this, Main2Activity.class);
-                startActivity(activityintent);
+                if(isOnline()==false){
+                    Log.d(TAG, "Check your internet connection");
+                    Toast.makeText(MainActivity.this, "Check your internet connection!",
+                            Toast.LENGTH_LONG).show();
+                }
+
+                else if(slaveName == "Worker") {
+                    Log.d(TAG, "Name not set!");
+                    Toast.makeText(MainActivity.this, "You need to approve your name!",
+                            Toast.LENGTH_LONG).show();
+                }
+
+                else {
+                    Intent activityintent = new Intent(MainActivity.this, Main2Activity.class);
+                    activityintent.putExtra("SlaveName", slaveName);
+                    startActivity(activityintent);
+                }
             }
         });
 
@@ -232,8 +256,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                byte[] bytes = etSend.getText().toString().getBytes(Charset.defaultCharset());
-                mBluetoothConnection.write(bytes);
+                slaveName = etSend.getText().toString();
+                if(!slaveName.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "You approved your name! Please continue..",
+                            Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "Invalid name!",
+                            Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 

@@ -40,14 +40,23 @@ public class HistoryActivity extends AppCompatActivity {
     private List<String> weight_list = new ArrayList<String>();
     private List<String> time_list = new ArrayList<String>();
     private List<String> timestamp_list = new ArrayList<String>();
+    private List<String> name_list = new ArrayList<String>();
 
 
     private ArrayList<HashMap<String, String>> list;
+
+
+    private String slaveName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        Bundle b = getIntent().getExtras();
+        slaveName = b.getString("SlaveName");
+
+        Log.d("Slave name: ",slaveName);
 
         Thread thread = new Thread() {
 
@@ -125,6 +134,14 @@ public class HistoryActivity extends AppCompatActivity {
                                     } catch (JSONException e1) {
                                         e1.printStackTrace();
                                     }
+
+                                    try {
+                                        Log.d("Parsing name", (jObj.getJSONObject(i).getString("name")));
+                                        name_list.add(jObj.getJSONObject(i).getString("name"));
+                                    } catch (JSONException e1) {
+                                        e1.printStackTrace();
+                                    }
+
                                     try {
                                         Log.d("Parsing timestamp", (jObj.getJSONObject(i).getString("timeStamp")));
                                         timestamp_list.add(jObj.getJSONObject(i).getString("timeStamp"));
@@ -199,17 +216,21 @@ public class HistoryActivity extends AppCompatActivity {
             ListView historyListview = (ListView) findViewById(R.id.historyListView);
             list = new ArrayList<HashMap<String, String>>();
 
-            Log.d("2.", "Test");
             int i = 0;
 
 
             for (i = 0; i < timestamp_list.size(); i++) {
                 HashMap<String, String> values = new HashMap<String, String>();
-
+                if(!name_list.get(i).equals(slaveName)){
+                    continue;
+                }
 
                 values.put(FIRST_COLUMN, timestamp_list.get(i).substring(0,10));
                 values.put(SECOND_COLUMN, time_list.get(i));
-                values.put(THIRD_COLUMN, weight_list.get(i).substring(0,5));
+                if(weight_list.get(i).length() >= 5)
+                    values.put(THIRD_COLUMN, weight_list.get(i).substring(0,5));
+                else
+                    values.put(THIRD_COLUMN, weight_list.get(i).substring(0,3));
                 values.put(FOURTH_COLUMN, temp_list.get(i).substring(0,2));
                 values.put(FIFTH_COLUMN, count_list.get(i));
                 list.add(values);
@@ -218,8 +239,6 @@ public class HistoryActivity extends AppCompatActivity {
             HistoryListAdapter adapter = new HistoryListAdapter(this, list);
             historyListview.setAdapter(adapter);
 
-            Log.d("3.", "Test");
-
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -227,7 +246,6 @@ public class HistoryActivity extends AppCompatActivity {
 
 
     }
-
 
 }
 
